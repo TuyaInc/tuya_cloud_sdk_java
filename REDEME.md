@@ -16,7 +16,7 @@
 以获取设备信息接口为例，直接调用device.GetDevice()即可
 
 ```java
-    String deviceID := "xxx";
+    String deviceID = "xxx";
     TuyaResult result = DeviceClient.getDevice(deviceID);
     // process got
 ```
