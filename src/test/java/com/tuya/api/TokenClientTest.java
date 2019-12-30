@@ -1,11 +1,7 @@
 package com.tuya.api;
 
-import com.tuya.api.client.CommonClient;
-import com.tuya.api.client.user.Models.SyncUserVO;
 import com.tuya.api.common.ClientConfig;
-import com.tuya.api.common.HttpMethod;
 import com.tuya.api.common.RegionEnum;
-import com.tuya.api.common.TuyaResult;
 import org.junit.Test;
 
 public class TokenClientTest {
@@ -76,10 +72,10 @@ public class TokenClientTest {
 //            TuyaResult result = DeviceClient.deleteDevice(deviceId);
 //            System.out.println(result);
 
-            // 通用接口示例
-            SyncUserVO vo = new SyncUserVO("86", "test1230@163.com", "test1230@163.com", "1231231", 2);
-            TuyaResult result = CommonClient.sendRequest("/v1.0/apps/allentest/user", HttpMethod.POST, null, vo);
-            System.out.println(result);
+//            // 通用接口示例
+//            SyncUserVO vo = new SyncUserVO("86", "test1230@163.com", "test1230@163.com", "1231231", 2);
+//            TuyaResult result = CommonClient.sendRequest("/v1.0/apps/xxx/user", HttpMethod.POST, null, vo);
+//            System.out.println(result);
         } catch (Exception e) {
             e.printStackTrace();
         }
