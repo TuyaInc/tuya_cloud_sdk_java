@@ -3,7 +3,7 @@ package com.tuya.api.common;
 /**
  * 结果类
  */
-public class TuyaResult {
+public class TuyaResult<T> {
 
     /**
      * 结果码
@@ -28,7 +28,7 @@ public class TuyaResult {
     /**
      * 结果集
      */
-    private String result;
+    private T result;
 
     public Integer getCode() {
         return code;
@@ -62,11 +62,11 @@ public class TuyaResult {
         this.t = t;
     }
 
-    public String getResult() {
+    public T getResult() {
         return result;
     }
 
-    public void setResult(String result) {
+    public void setResult(T result) {
         this.result = result;
     }
 

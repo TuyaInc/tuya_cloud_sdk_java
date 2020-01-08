@@ -54,10 +54,10 @@ public class TokenCache {
 
     public static synchronized void setToken(TuyaResult tr) {
         if (null != tr && null != tr.getResult()) {
-            TokenResponse resp = JSONObject.parseObject(tr.getResult(), TokenResponse.class);
+            TokenResponse resp = JSONObject.parseObject(JSONObject.toJSONString(tr.getResult()), TokenResponse.class);
             cache.put(ACCESS_TOKEN, resp.getAccessToken());
             cache.put(REFRESH_TOKEN, resp.getRefreshToken());
-            cache.put(EXPIRE_TIME, new DateTime().getMillis()/1000 + String.valueOf(resp.getExpireTime()));
+            cache.put(EXPIRE_TIME, String.valueOf(new DateTime().getMillis()/1000 + resp.getExpireTime()));
         }
     }
 

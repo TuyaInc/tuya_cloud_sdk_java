@@ -25,24 +25,23 @@
 
 |  Method                   | API                                               | 描述  |
 |  ----                     | ----                                              | ----  |
-| token.GetTokenAPI         | GET  /v1.0/token?grant_type=1                     | [简单模式获取access_token](https://docs.tuya.com/docDetail?code=K8uuxenajovgv) |
-| token.RefreshToken     | GET  /v1.0/token/{{easy_refresh_token}}           | [刷新token](https://docs.tuya.com/docDetail?code=K8uuxfcvdsqwm) |
+| TokenClient.getToken         | GET  /v1.0/token?grant_type=1                     | [简单模式获取access_token](https://docs.tuya.com/docDetail?code=K8uuxenajovgv) |
+| TokenClient.refreshToken     | GET  /v1.0/token/{{easy_refresh_token}}           | [刷新token](https://docs.tuya.com/docDetail?code=K8uuxfcvdsqwm) |
 |  |  |  |
-| device.GetDevice          | GET  /v1.0/devices/{{device_id}}                  | [获取设备信息](https://docs.tuya.com/docDetail?code=K8uuxen89a81x) |
-| device.GetDeviceFunctions | GET  /v1.0/devices/{deviceId}/functions | [获取设备支持的function列表](https://docs.tuya.com/docDetail?code=K8uuxemwya69p) |
-| device.GetDeviceFunctionByCategory | GET  /v1.0/functions/{category} | [根据category获取function列表](https://docs.tuya.com/docDetail?code=K8uuxemym7qkt) |
-| device.GetDeviceStatus | GET  /v1.0/devices/{{device_id}}/status           | [获取设备功能点的信息](https://docs.tuya.com/docDetail?code=K8uuxen4ux749) |
-| device.GetDeviceList | GET  /v1.0/devices/status?device_ids={{device_id}} | [批量获取设备状态](https://docs.tuya.com/docDetail?code=K8uuxenar6kgc) |
-| device.PostDeviceCommand | POST  /v1.0/devices/{{device_id}}/commands        | [设备指令下发](https://docs.tuya.com/docDetail?code=K8uuxfcxbpwlo) |
-| device.DeleteDevice | DELETE  /v1.0/devices/{device_id} | [移除设备](https://docs.tuya.com/docDetail?code=K8uuxemvwtp3z) |
+| DeviceClient.getDevice          | GET  /v1.0/devices/{{device_id}}                  | [获取设备信息](https://docs.tuya.com/docDetail?code=K8uuxen89a81x) |
+| DeviceClient.getDeviceFunctions | GET  /v1.0/devices/{deviceId}/functions | [获取设备支持的function列表](https://docs.tuya.com/docDetail?code=K8uuxemwya69p) |
+| DeviceClient.getDeviceFunctionByCategory | GET  /v1.0/functions/{category} | [根据category获取function列表](https://docs.tuya.com/docDetail?code=K8uuxemym7qkt) |
+| DeviceClient.getDeviceStatus | GET  /v1.0/devices/{{device_id}}/status           | [获取设备功能点的信息](https://docs.tuya.com/docDetail?code=K8uuxen4ux749) |
+| DeviceClient.getDeviceList | GET  /v1.0/devices/status?device_ids={{device_id}} | [批量获取设备状态](https://docs.tuya.com/docDetail?code=K8uuxenar6kgc) |
+| DeviceClient.postDeviceCommand | POST  /v1.0/devices/{{device_id}}/commands        | [设备指令下发](https://docs.tuya.com/docDetail?code=K8uuxfcxbpwlo) |
+| DeviceClient.deleteDevice | DELETE  /v1.0/devices/{device_id} | [移除设备](https://docs.tuya.com/docDetail?code=K8uuxemvwtp3z) |
 |  |  |  |
-| user.PostUserRegister   | POST  /v1.0/apps/{schema}/user | [云端用户注册](https://docs.tuya.com/docDetail?code=K8uuxfcuhc2ei) |
-| user.GetUserList   | GET  /v1.0/apps/{schema}/users?page_no=&page_size= | [获取用户列表](https://docs.tuya.com/docDetail?code=K8uuxemwe9kwb) |
-| user.GetDeviceListByUid | GET /v1.0/users/{uid}/devices | [根据用户id获取设备列表](https://docs.tuya.com/docDetail?code=K8uuxfcuesrh7) |
+| DeviceClient.generateDeviceToken | POST /v1.0/devices/token       | [生成设备配网token](https://docs.tuya.com/docDetail?code=K8uuxfcujsk6n) |
+| DeviceClient.getDevicesByToken | GET  /v1.0/devices/tokens/{{pair_token}}         | [根据token获取设备列表](https://docs.tuya.com/docDetail?code=K8uuxemz174o3) |
+| DeviceClient.getDeviceListByUid | GET /v1.0/users/{uid}/devices | [根据用户id获取设备列表](https://docs.tuya.com/docDetail?code=K8uuxfcuesrh7) |
 |  |  |  |
-| device.dn.PostDeviceToken | POST /v1.0/devices/token       | [生成设备配网token](https://docs.tuya.com/docDetail?code=K8uuxfcujsk6n) |
-| device.dn.GetDevicesByToken | GET  /v1.0/devices/tokens/{{pair_token}}         | [根据token获取设备列表](https://docs.tuya.com/docDetail?code=K8uuxemz174o3) |
-
+| UserClient.syncUser   | POST  /v1.0/apps/{schema}/user | [云端用户注册](https://docs.tuya.com/docDetail?code=K8uuxfcuhc2ei) |
+| UserClient.getUsers   | GET  /v1.0/apps/{schema}/users?page_no=&page_size= | [获取用户列表](https://docs.tuya.com/docDetail?code=K8uuxemwe9kwb) |
 
 
 ## 常见问题
@@ -86,11 +85,16 @@ pair_token是指app下的某个用户的配网token，可以从v1.0/devices/toke
 
 ### 如果SDK中的API没有及时更新，如何自己实现一个API？
 
-有3种方法：
+有三种方法：
 
-1. 可以通过实现com.tuya.api.common.ApiRequest这个interface，如果是POST请求需要把com.tuya.api.common.ApiRequestBody接口也实现了。
-然后通过client暴露方法即可。具体可以参考DeviceClient实现;
-2. 初始化开发者信息后，可以直接调用CommonClient, 传入相应的参数即可；
-3. 提个issue，我们会及时更新 ^_^
+一、自定义类实现
+1. 通过创建请求类实现com.tuya.api.common.ApiRequest, 并完善其中getRequestMethod和getRequestUrl两个方法；
+2. 如果是POST请求，实现com.tuya.api.common.ApiRequestBody接口, 完善getRequestBody方法；
+3. 通过client类暴露请求方法。具体可以参考DeviceClient实现;
+
+二、使用提供的通用接口
+直接调用CommonClient, 传入相应的参数即可。
+
+三、提个issue，我们会及时更新 ^_^
 
 

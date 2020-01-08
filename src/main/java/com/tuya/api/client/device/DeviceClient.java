@@ -67,7 +67,7 @@ public class DeviceClient {
      * @param req
      * @return
      */
-    public static TuyaResult PostDeviceCommand(PostDeviceCommandReq req) {
+    public static TuyaResult postDeviceCommand(PostDeviceCommandReq req) {
         return RequestHandler.sendRequest(req);
     }
 
