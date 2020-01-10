@@ -89,7 +89,7 @@ pair_token是指app下的某个用户的配网token，可以从v1.0/devices/toke
 
 一、自定义类实现
 1. 通过创建请求类实现com.tuya.api.common.ApiRequest, 并完善其中getRequestMethod和getRequestUrl两个方法；
-2. 如果是POST请求，实现com.tuya.api.common.ApiRequestBody接口, 完善getRequestBody方法；
+2. 如何需要传递body参数，还需要实现com.tuya.api.common.ApiRequestBody接口, 完善getRequestBody方法；
 3. 通过client类暴露请求方法。具体可以参考DeviceClient实现;
 
 二、使用提供的通用接口
