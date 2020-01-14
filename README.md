@@ -2,24 +2,120 @@
 
 ## 使用前需要做
 
-1. 确定`AccessID、AccessKey、serverHOST`这些值
+1. JDK7版本及以上
 
-2. 在你运行本sdk前，显式初始化一次开发者信息：
+2. 在涂鸦云平台注册开发者账号，确定AccessID、AccessKey、Endpoint(调用地址)这些值
 
-   ```
-   ClientConfig.init(accessID, accessKey, RegionEnum.URL_CN);
-   ```
+## 源码安装
+1. 前往 [Github 代码托管地址](https://registry.code.tuya-inc.top/shengjun.zhang/tuya_cloud_sdk_java) 下载源码压缩包。
+2. 解压源码包到您项目合适的位置。
+3. 代码中引用对应模块代码，可参考示例。
 
-  
-## Example
+## 引用jar包
+1. 联系相关人员获取jar包。
+2. 在您的代码中添加jar包到合适位置
 
-以获取设备信息接口为例，直接调用device.GetDevice()即可
+## 使用说明
+SDK中提供了两种方式实现接口请求，如果您需要自实现一些接口，您可以任意选择一种。您也可以联系我们，我们会及时更新。
 
+### 自定义类实现(推荐)
+#### 定义请求类
+请求类需要实现com.tuya.api.common.ApiRequest接口，完善其中getRequestMethod和getRequestUrl两个方法。如果请求需要传递body参数，
+需要再实现com.tuya.api.common.ApiRequestBody接口，完善getRequestBody方法。
 ```java
-    String deviceID = "xxx";
-    TuyaResult result = DeviceClient.getDevice(deviceID);
-    // process got
+    /**
+     * 同步用户请求类
+     */
+    public class SyncUserReq implements ApiRequest, ApiRequestBody {
+    
+        /**
+         * 渠道标识符
+         */
+        @NotBlank
+        private String schema;
+    
+        /**
+         * 用户
+         */
+        @NotNull
+        @Valid
+        private SyncUserVO user;
+    
+        public SyncUserReq(String schema, SyncUserVO user) {
+            this.schema = schema;
+            this.user = user;
+        }
+    
+        public HttpMethod getRequestMethod() {
+            return HttpMethod.POST;
+        }
+    
+        public String getRequestUrl() {
+            return String.format("/v1.0/apps/%s/user", this.schema);
+        }
+    
+        public String getRequestBody() {
+            return new Gson().toJson(this.user);
+        }
+    }
 ```
+
+#### 定义client类，暴露请求方法。
+```java
+    /**
+     * 用户客户端类
+     */
+    public class UserClient {
+    
+        /**
+         * 同步用户
+         *
+         * @param schema 渠道标识符
+         * @param user 用户数据
+         * @return
+         */
+        public static TuyaResult syncUser(String schema, SyncUserVO user) {
+            return RequestHandler.sendRequest(new SyncUserReq(schema, user));
+        }
+    
+        /**
+         * 获取用户
+         *
+         * @param schema 渠道标识符
+         * @param pageNo 当前页, 从1开始
+         * @param pageSize 每页大小
+         * @return
+         */
+        public static TuyaResult getUsers(String schema, int pageNo, int pageSize) {
+            return RequestHandler.sendRequest(new GetUsersReq(schema, pageNo, pageSize));
+        }
+    }
+```
+
+#### 调用方法
+```java
+    // 初始化开发者信息，对应涂鸦云AccessId、AccessKey、涂鸦云服务url
+    lientConfig.init(accessId, accessKey, RegionEnum.URL_CN);
+
+    // 同步用户示例
+    SyncUserVO vo = new SyncUserVO("86", "17265439876", "17265439876", "1231231", 1);
+    UserClient.syncUser(schema, vo);
+```
+
+> 调用接口前需要初始化开发者信息
+
+### 通用接口
+调用CommonClient, 传入相应的参数即可
+```java
+    // 初始化开发者信息，对应涂鸦云AccessId、AccessKey、涂鸦云服务url
+    lientConfig.init(accessId, accessKey, RegionEnum.URL_CN);
+
+    // 通用接口示例
+    SyncUserVO vo = new SyncUserVO("86", "17265439876", "17265439876", "1231231", 1);
+    TuyaResult result = CommonClient.sendRequest("/v1.0/apps/xxx/user", HttpMethod.POST, null, vo);
+    System.out.println(result);
+```
+> 调用接口前需要初始化开发者信息
 
 ## 目前支持的API
 
@@ -82,19 +178,5 @@
 ### v1.0/devices/tokens/{{pair_token}}接口，pair_token是指什么？如何获取？
 
 pair_token是指app下的某个用户的配网token，可以从v1.0/devices/token获取。
-
-### 如果SDK中的API没有及时更新，如何自己实现一个API？
-
-有三种方法：
-
-一、自定义类实现
-1. 通过创建请求类实现com.tuya.api.common.ApiRequest, 并完善其中getRequestMethod和getRequestUrl两个方法；
-2. 如何需要传递body参数，还需要实现com.tuya.api.common.ApiRequestBody接口, 完善getRequestBody方法；
-3. 通过client类暴露请求方法。具体可以参考DeviceClient实现;
-
-二、使用提供的通用接口
-直接调用CommonClient, 传入相应的参数即可。
-
-三、提个issue，我们会及时更新 ^_^
 
 
