@@ -72,12 +72,12 @@ public class TuyaResult<T> {
 
     @Override
     public String toString() {
-        return "TuyaResult{" +
-                "code=" + code +
-                ", msg='" + msg + '\'' +
-                ", success=" + success +
-                ", t=" + t +
-                ", result='" + result + '\'' +
+        return "{" +
+                "\"code\":" + code +
+                ", \"msg\":" + msg +
+                ", \"success\":" + success +
+                ", \"t\":" + t +
+                ", \"result\":" + result +
                 '}';
     }
 }

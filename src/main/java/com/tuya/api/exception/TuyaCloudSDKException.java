@@ -23,4 +23,14 @@ public class TuyaCloudSDKException extends RuntimeException {
     public void setCode(Integer code) {
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        if (code != null) {
+            return "TuyaCloudSDKException: " +
+                    "[" + code + "] " + getMessage();
+        }
+
+        return "TuyaCloudSDKException: " + getMessage();
+    }
 }
