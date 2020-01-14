@@ -18,7 +18,7 @@
 ## 使用说明
 SDK中提供了两种方式实现接口请求，如果您需要自实现一些接口，您可以任意选择一种。您也可以联系我们，我们会及时更新。
 
-### 自定义类实现(推荐)
+### 一、自定义类实现(推荐)
 #### 定义请求类
 请求类需要实现com.tuya.api.common.ApiRequest接口，完善其中getRequestMethod和getRequestUrl两个方法。如果请求需要传递body参数，
 需要再实现com.tuya.api.common.ApiRequestBody接口，完善getRequestBody方法。
@@ -104,7 +104,7 @@ SDK中提供了两种方式实现接口请求，如果您需要自实现一些�
 
 > 调用接口前需要初始化开发者信息
 
-### 通用接口
+### 二、通用接口
 调用CommonClient, 传入相应的参数即可
 ```java
     // 初始化开发者信息，对应涂鸦云AccessId、AccessKey、涂鸦云服务url
