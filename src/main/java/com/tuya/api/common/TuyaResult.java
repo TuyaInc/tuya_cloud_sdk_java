@@ -70,6 +70,27 @@ public class TuyaResult<T> {
         this.result = result;
     }
 
+
+    public TuyaResult(Integer code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
+    public TuyaResult(Boolean success, T result) {
+        this.success = success;
+        this.result = result;
+    }
+
+    public TuyaResult(Boolean success, Long t, T result) {
+        this.success = success;
+        this.t = t;
+        this.result = result;
+    }
+
+    public TuyaResult() {
+
+    }
+
     @Override
     public String toString() {
         return "TuyaResult{" +
@@ -77,7 +98,7 @@ public class TuyaResult<T> {
                 ", msg='" + msg + '\'' +
                 ", success=" + success +
                 ", t=" + t +
-                ", result='" + result + '\'' +
+                ", result=" + result  +
                 '}';
     }
 }
