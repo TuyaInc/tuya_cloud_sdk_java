@@ -106,8 +106,7 @@ public class CommonClient {
 
             return result;
         } catch (IOException e) {
-            throw new TuyaCloudSDKException(500, e.getMessage());
+            throw new TuyaCloudSDKException(e.getMessage());
         }
     }
-
 }

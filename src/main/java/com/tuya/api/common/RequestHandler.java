@@ -131,7 +131,7 @@ public class RequestHandler {
 
             return result;
         } catch (IOException e) {
-            throw new TuyaCloudSDKException(500, e.getMessage());
+            throw new TuyaCloudSDKException(e.getMessage());
         }
     }
 
@@ -204,7 +204,7 @@ public class RequestHandler {
                     .get()
                     .build();
         } catch (IllegalArgumentException e) {
-            throw new TuyaCloudSDKException(500, e.getClass().getName() + "-" + e.getMessage());
+            throw new TuyaCloudSDKException(e.getMessage());
         }
 
         return doRequest(request);
@@ -227,7 +227,7 @@ public class RequestHandler {
                     .headers(headers)
                     .build();
         } catch (IllegalArgumentException e) {
-            throw new TuyaCloudSDKException(500, e.getClass().getName() + "-" + e.getMessage());
+            throw new TuyaCloudSDKException(e.getMessage());
         }
 
         return doRequest(request);
@@ -250,7 +250,7 @@ public class RequestHandler {
                     .headers(headers)
                     .build();
         } catch (IllegalArgumentException e) {
-            throw new TuyaCloudSDKException(500, e.getClass().getName() + "-" + e.getMessage());
+            throw new TuyaCloudSDKException(e.getMessage());
         }
 
         return doRequest(request);
@@ -274,7 +274,7 @@ public class RequestHandler {
                     .headers(headers)
                     .build();
         } catch (IllegalArgumentException e) {
-            throw new TuyaCloudSDKException(500, e.getClass().getName() + "-" + e.getMessage());
+            throw new TuyaCloudSDKException(e.getMessage());
         }
 
         return doRequest(request);
@@ -291,7 +291,7 @@ public class RequestHandler {
         try {
             response = getHttpClient().newCall(request).execute();
         } catch (IOException e) {
-            throw new TuyaCloudSDKException(500, e.getClass().getName() + "-" + e.getMessage());
+            throw new TuyaCloudSDKException(e.getMessage());
         }
         return response;
     }
