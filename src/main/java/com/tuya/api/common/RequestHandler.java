@@ -302,11 +302,6 @@ public class RequestHandler {
      * @return
      */
     private static OkHttpClient getHttpClient() {
-        OkHttpClient client = new OkHttpClient();
-        client.setConnectTimeout(connTimeout, TimeUnit.SECONDS);
-        client.setReadTimeout(readTimeout, TimeUnit.SECONDS);
-        client.setWriteTimeout(writeTimeout, TimeUnit.SECONDS);
-
-        return client;
+        return TuyaHttpClient.getInstance().getOkHttpClient();
     }
 }
