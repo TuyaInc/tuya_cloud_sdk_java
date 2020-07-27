@@ -11,10 +11,10 @@
 
     <properties>
         <okhttp.version>2.7.5</okhttp.version>
-        <fastjsoin.version>1.2.47</fastjsoin.version>
+        <fastjsoin.version>1.2.72</fastjsoin.version>
         <commands-lang.version>2.6</commands-lang.version>
         <commons-collections.version>3.2.2</commons-collections.version>
-        <commons-codec.version>1.10</commons-codec.version>
+        <commons-codec.version>1.14</commons-codec.version>
         <guava.version>18.0</guava.version>
         <joda-time.version>2.10</joda-time.version>
         <hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
